@@ -6,6 +6,13 @@ This is a test of a six channel RC Receiver connected on a single GPIO Pin via a
 The software configures the RMT module and starts it.
 It receives the values of eight PPM channels transmitted by the PPM Encoder in a circular buffer and displays them.
 
+To try it out, you should:
+1) connect the RC Recevier power to the Board
+2) connect PPM Encoder to the Board (I used GPIO23)
+3) connect your development board on USB port
+4) flash the firmware with the command <code>idf.py flash</code>
+5) run <code>idf.py monitor</code> to see the logs
+6) Use the transmitter to check the values
 
 Below are the components used:
 
