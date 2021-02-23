@@ -9,7 +9,7 @@ It receives the values of eight PPM channels transmitted by the PPM Encoder in a
 You can build it with command <code>cmake --build build</code> or  <code>idf.py build</code>
 
 To try it out, you should:
-1) connect the RC Recevier power to the Board
+1) connect the RC Receiver power to the Board
 2) connect PPM Encoder to the Board (I used GPIO23)
 3) connect your development board on USB port
 4) flash the firmware with the command <code>idf.py flash</code>
