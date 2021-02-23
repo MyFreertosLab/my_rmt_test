@@ -22,7 +22,7 @@ Below are the components used:
 <p align="left">
   <img src="https://github.com/MyFreertosLab/my_rmt_test/blob/master/images/esp32.jpg" width="300" title="The Esp32 Board">
   <img src="https://github.com/MyFreertosLab/my_rmt_test/blob/master/images/receiver.jpg" width="300" title="The connections between the Board, the Receiver and the PPM Encoder">
-  <img src="https://github.com/MyFreertosLab/my_rmt_test/blob/master/images/transmitter.jpg" width="300" title="The RC Transmitter">
   <img src="https://github.com/MyFreertosLab/my_rmt_test/blob/master/images/logs.jpg" width="300" title="The logs">
+  <img src="https://github.com/MyFreertosLab/my_rmt_test/blob/master/images/transmitter.jpg" width="300" title="The RC Transmitter">
 </p>
 
