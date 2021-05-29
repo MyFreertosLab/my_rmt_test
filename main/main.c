@@ -30,14 +30,26 @@ static void ppm_rx_task(void *pvParameter)
 	rc.idle_threshold = RC_PPM_TIMEOUT_US * (RC_TICK_US);
 
 	ESP_ERROR_CHECK(rc_init(rc_handle));
+	printf("Register Min/Max Values\n");
 	ESP_ERROR_CHECK(rc_start(rc_handle));
 	ESP_ERROR_CHECK(rc_stop(rc_handle));
+
+	printf("Register Center Values\n");
+	ESP_ERROR_CHECK(rc_start(rc_handle));
+	ESP_ERROR_CHECK(rc_stop(rc_handle));
+	printf("Min/Center/Max values for Sticks\n");
+	for(uint8_t i = 0; i < RC_MAX_CHANNELS; i++) {
+		rc_handle->rc_stick_ranges[i].center = rc_handle->rc_stick_ranges[i].value;
+		printf("Channel [%d] range: [%d][%d][%d]\n", i, rc_handle->rc_stick_ranges[i].min, rc_handle->rc_stick_ranges[i].center, rc_handle->rc_stick_ranges[i].max);
+	}
+
+	printf("Bye, bye ...\n");
     vTaskDelete(NULL);
 }
 
 void app_main(void)
 {
-    xTaskCreate(ppm_rx_task, "ppm_rx_task", 2048, NULL, 10, NULL);
+    xTaskCreate(ppm_rx_task, "ppm_rx_task", 6144, NULL, 10, NULL);
 
 }
 
