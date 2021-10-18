@@ -88,10 +88,12 @@ static void ppm_rx_task(void *pvParameter)
 	ESP_ERROR_CHECK(rc_start(rc_handle));
 	ESP_ERROR_CHECK(rc_stop(rc_handle));
 
+        vTaskDelay(pdMS_TO_TICKS(20000));
 	printf("Register Min/Max Values\n");
 	ESP_ERROR_CHECK(rc_start(rc_handle));
 	ESP_ERROR_CHECK(rc_stop(rc_handle));
 
+        vTaskDelay(pdMS_TO_TICKS(20000));
 	printf("Register Center Values\n");
 	ESP_ERROR_CHECK(rc_start(rc_handle));
 	ESP_ERROR_CHECK(rc_stop(rc_handle));

@@ -72,6 +72,8 @@ esp_err_t rc_start(rc_handle_t rc_handle) {
 	rmt_rx_start(channel, 1);
 
 	printf("RC Started ... \n");
+	uint16_t value[8] = {0,0,0,0,0,0,0,0};
+
 	while (rb) {
 		size_t rx_size = 0;
 		int channels;
@@ -80,23 +82,33 @@ esp_err_t rc_start(rc_handle_t rc_handle) {
 		if (item) {
 			channels = (rx_size / 4) - 1;
 			for (int i = 0; i < channels; i++) {
-				rc_handle->rc_stick_ranges[i].value = (uint16_t)(((item + i)->duration1+ (item + i)->duration0) / rmt_tick_microseconds);
-				if (rc_handle->rc_stick_ranges[i].min == 0
-						|| rc_handle->rc_stick_ranges[i].min
-								> rc_handle->rc_stick_ranges[i].value) {
-					rc_handle->rc_stick_ranges[i].min =
-							rc_handle->rc_stick_ranges[i].value;
-				}
-				if (rc_handle->rc_stick_ranges[i].max == 0
-						|| rc_handle->rc_stick_ranges[i].max
-								< rc_handle->rc_stick_ranges[i].value) {
-					rc_handle->rc_stick_ranges[i].max =
-							rc_handle->rc_stick_ranges[i].value;
-				}
-				printf("%d-%04d ", i, rc_handle->rc_stick_ranges[i].value);
+				 value[i] = (uint16_t)(((item + i)->duration1+ (item + i)->duration0) / rmt_tick_microseconds);
+				printf("%d-%04d ", i, value[i]);
 			}
 			printf("\n");
 			vRingbufferReturnItem(rb, (void*) item);
+
+			// a Data not received condition
+            if(value[RC_THROTTLE] >= 1500 && value[RC_PITCH] <= 910) {
+			  printf("Data NOT received\n");
+			  return ESP_OK;
+            } else {
+    			for (int i = 0; i < channels; i++) {
+    				rc_handle->rc_stick_ranges[i].value = value[i];
+    				if (rc_handle->rc_stick_ranges[i].min == 0
+    						|| rc_handle->rc_stick_ranges[i].min
+    								> rc_handle->rc_stick_ranges[i].value) {
+    					rc_handle->rc_stick_ranges[i].min =
+    							rc_handle->rc_stick_ranges[i].value;
+    				}
+    				if (rc_handle->rc_stick_ranges[i].max == 0
+    						|| rc_handle->rc_stick_ranges[i].max
+    								< rc_handle->rc_stick_ranges[i].value) {
+    					rc_handle->rc_stick_ranges[i].max =
+    							rc_handle->rc_stick_ranges[i].value;
+    				}
+    			}
+            }
 		} else {
 			printf("Data NOT received\n");
 			return ESP_OK;
