@@ -128,8 +128,8 @@ CONFIG_PARTITION_TABLE_MD5=y
 #
 # Example Configuration
 #
-CONFIG_ESP_WIFI_SSID="myssid"
-CONFIG_ESP_WIFI_PASSWORD="mypassword"
+CONFIG_ESP_RC_PROTOCOL_IBUS=y
+# CONFIG_ESP_RC_PROTOCOL_PPM is not set
 # end of Example Configuration
 
 #
